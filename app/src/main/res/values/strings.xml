@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Pomodoro App</string>
+
+    <!-- Strings for text views -->
+    <string name="session_length_label">Length of Session: </string>
+    <string name="num_of_sessions_label">Number of Sessions: </string>
+    <string name="short_break_label">Length of Short Break: </string>
+    <string name="long_break_label">Length of Long Break: </string>
+    <string name="counter">Session: %d of %d</string>
+    <string name="timer_label">Currently in: %s</string>
+
+    <!-- Labels for buttons -->
+    <string name="submit">Submit</string>
+    <string name="task_name_string">%s</string>
+
+    <!-- Labels for the fragments -->
+    <string name="manage_task_label">Manage Task</string>
+    <string name="task_fragment_label">Task</string>
+    <string name="enter_task_name">Task Name</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+    <string name="edit_task">Edit Task</string>
+
+    <!-- Strings for Dialog -->
+    <string name="delete_task">Delete Task?</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
+    <!-- Strings for Snackbars -->
+    <string name="delete_success">Task successfully deleted.</string>
+    <string name="submit_success">Submission successful.</string>
+    <string name="auto_start_timer">Auto Start Timer?</string>
+
+    <!-- Notification Strings -->
+    <string name="start_break">Start %s Break!</string>
+    <string name="break_running">Enjoy Your Break!</string>
+    <string name="start_work">Time to Work!</string>
+    <string name="work_string">Working…</string>
+    <string name="finished_pomodoro">Pomodoro Finished!</string>
+    <string name="time_left">Time Left: %s</string>
+    <string name="no_tasks">No tasks!</string>
+</resources>

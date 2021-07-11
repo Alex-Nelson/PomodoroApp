@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="manageTaskViewModel"
+            type="com.example.pomodoroapp.manage.ManageTaskViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".manage.ManageTaskFragment">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_task_name"
+                android:padding="@dimen/spacing_normal"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:errorIconDrawable="@drawable/ic_baseline_error_24"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/task_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textShortMessage|text"
+                    android:maxLines="1"
+                    android:text="@{manageTaskViewModel.name}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/sessionTextView"
+                style="@style/manage_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/session_length_label"
+                app:layout_constraintBaseline_toBaselineOf="@+id/sessLenTextField"
+                app:layout_constraintEnd_toStartOf="@+id/sessLenTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/sessionLenIncButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="25dp"
+                android:onClick="@{() -> manageTaskViewModel.incSessionTime()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                app:layout_constraintBottom_toTopOf="@+id/sessLenTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.863"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTextField"
+                tools:ignore="ContentDescription"/>
+
+            <ImageButton
+                android:id="@+id/sessionLenDecButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="25dp"
+                android:onClick="@{() -> manageTaskViewModel.decSessionTime()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                app:layout_constraintBottom_toTopOf="@+id/numSessionsIncButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.863"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sessLenTextField"
+                tools:ignore="ContentDescription"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sessLenTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/sessionLenDecButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/sessionTextView"
+                app:layout_constraintTop_toBottomOf="@+id/sessionLenIncButton">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/session_length_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:text="@{manageTaskViewModel.sessionTime.toString()}"
+                    android:textAlignment="center"
+                    tools:text="25" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/numSessionsIncButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@color/white"
+                android:onClick="@{() -> manageTaskViewModel.incNumSessions()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                app:layout_constraintBottom_toTopOf="@+id/numSessionTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.956"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sessionLenDecButton"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/numSessionsDecButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@color/white"
+                android:onClick="@{() -> manageTaskViewModel.decNumSessions()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                app:layout_constraintBottom_toTopOf="@+id/shortLengthIncButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.953"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/numSessionTextField"
+                tools:ignore="ContentDescription"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/numSessionTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/numSessionsDecButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/numSessionsTextView"
+                app:layout_constraintTop_toBottomOf="@+id/numSessionsIncButton">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/number_session_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:text="@{manageTaskViewModel.numSessions.toString()}"
+                    android:textAlignment="center"
+                    tools:text="4" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/numSessionsTextView"
+                style="@style/manage_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/num_of_sessions_label"
+                app:layout_constraintBaseline_toBaselineOf="@+id/numSessionTextField"
+                app:layout_constraintEnd_toStartOf="@+id/numSessionTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/shortBreakTextView"
+                style="@style/manage_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/short_break_label"
+                app:layout_constraintBaseline_toBaselineOf="@+id/shortLengthTextField"
+                app:layout_constraintEnd_toStartOf="@+id/shortLengthTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/shortLengthIncButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@color/white"
+                android:onClick="@{() -> manageTaskViewModel.incShortBreakTime()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                app:layout_constraintBottom_toTopOf="@+id/shortLengthTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.971"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/numSessionsDecButton"
+                tools:ignore="ContentDescription"/>
+
+            <ImageButton
+                android:id="@+id/shortLengthDecButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@color/white"
+                android:onClick="@{() -> manageTaskViewModel.decShortBreakTime()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                app:layout_constraintBottom_toTopOf="@+id/longLengthIncButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.971"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shortLengthTextField"
+                tools:ignore="ContentDescription"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/shortLengthTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/shortLengthDecButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/shortBreakTextView"
+                app:layout_constraintTop_toBottomOf="@+id/shortLengthIncButton">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/short_break_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:text="@{manageTaskViewModel.shortTime.toString()}"
+                    android:textAlignment="center"
+                    tools:text="5" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/longBreakTextView"
+                style="@style/manage_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/long_break_label"
+                app:layout_constraintBaseline_toBaselineOf="@+id/longLengthTextField"
+                app:layout_constraintEnd_toStartOf="@+id/longLengthTextField"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/longLengthIncButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@color/white"
+                android:onClick="@{() -> manageTaskViewModel.incLongBreakTime()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                app:layout_constraintBottom_toTopOf="@+id/longLengthTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.953"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shortLengthDecButton"
+                tools:ignore="ContentDescription"/>
+
+            <ImageButton
+                android:id="@+id/longLengthDecButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@color/white"
+                android:onClick="@{() -> manageTaskViewModel.decLongBreakTime()}"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                app:layout_constraintBottom_toTopOf="@+id/submitButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.953"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/longLengthTextField"
+                tools:ignore="ContentDescription"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/longLengthTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/longLengthDecButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/longBreakTextView"
+                app:layout_constraintTop_toBottomOf="@+id/longLengthIncButton">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/long_break_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:text="@{manageTaskViewModel.longTime.toString()}"
+                    android:textAlignment="center"
+                    tools:text="15" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> manageTaskViewModel.onSubmit()}"
+                android:text="@string/submit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>
