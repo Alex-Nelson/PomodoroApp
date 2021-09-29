@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Pomodoro Timer Application</string>
+    <string name="title_activity_home_activity">HomeActivity</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+
+    <string name="task_status_string">Status : %s</string>
+
+    <!-- Greeting strings -->
+    <string name="morning_greeting">Good Morning!</string>
+    <string name="welcome_back_greeting">Welcome Back!</string>
+    <string name="afternoon_greeting">Good Afternoon!</string>
+    <string name="evening_greeting">Good Evening!</string>
+
+    <!-- Strings for dialog -->
+    <string name="session_length">Session Length:</string>
+    <string name="number_of_sessions">Number of Sessions:</string>
+    <string name="short_break_length">Short Break Length:</string>
+    <string name="number_of_short_breaks">Number of Short Breaks:</string>
+    <string name="long_break_length">Long Break Length:</string>
+    <string name="number_of_long_breaks">Number of Long Breaks:</string>
+</resources>
