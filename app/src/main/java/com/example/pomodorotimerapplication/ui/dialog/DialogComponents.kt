@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.pomodorotimerapplication.R
 
 /**
@@ -38,6 +39,12 @@ fun TaskNameInput(
             onNameComplete(name)
             onTextChange(name)
         }
+    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Divider(color = Color.Black, thickness = 1.dp)
     }
 
     NameInputText(
@@ -106,7 +113,6 @@ fun NumberDropDown(
     highVal: Int,
     selectedVal: Int,
     expanded: Boolean,
-    //onClick: () -> Unit,
     onDismiss: () -> Unit,
     onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -115,16 +121,18 @@ fun NumberDropDown(
     val rangeList = createNumberList(lowVal, highVal)
 
     Box {
+
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismiss,
             modifier = modifier
         ) {
+
             rangeList.forEach { num ->
                 // Set style for text
                 val isSelected = num == selectedVal
                 val style = if(isSelected){
-                    MaterialTheme.typography.body1.copy(
+                    MaterialTheme.typography.h6.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colors.secondary
                     )

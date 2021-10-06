@@ -10,17 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PomodoroTimerApplication">
         <activity
-            android:name=".ui.home.HomeScreen"
-            android:exported="true"
-            android:label="@string/title_activity_home_screen"
-            android:theme="@style/Theme.PomodoroTimerApplication.NoActionBar" />
-        <activity
-            android:name=".home.HomeActifity"
-            android:exported="true"
-            android:label="@string/title_activity_home_activity"
-            android:theme="@style/Theme.PomodoroTimerApplication.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".PomodoroMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.PomodoroTimerApplication.NoActionBar">

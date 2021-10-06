@@ -110,12 +110,12 @@ fun PomodoroAppNavHost(
         composable(route = PomodoroScreen.Home.name){
             HomeScreen(
                 navController = navController,
-                viewModel = homeViewModel
+                homeViewModel = homeViewModel
             )
         }
 
         composable(
-            route = PomodoroScreen.EditDialog.name,
+            route = "${PomodoroScreen.EditDialog.name}/{taskId}",
             arguments = listOf(
                 navArgument("taskId"){
                     type = NavType.LongType
@@ -136,36 +136,59 @@ fun PomodoroAppNavHost(
  * Screen for the app's home (first thing user sees when app is first launched),
  *
  * @param navController
- * @param viewModel the view model used by the screen
+ * @param homeViewModel the view model used by the screen
  * */
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: HomeViewModel
+    homeViewModel: HomeViewModel
 ){
     // TODO: retrieve all lists from view model
-    val allList = viewModel.allTasksList.observeAsState(initial = listOf()).value
-
-    /**
-     * Helper function to convert [Task] to a json string that will be sent to
-     * the Run Timer Screen.
-     *
-     * @param task a [Task] that the user clicked
-     * */
-    fun navigateToRunTimer(task: Task){
-        val taskJson = Gson().toJson(task)
-
-        //TODO: call navigate
-    }
+    val allList = homeViewModel.allTasksList.observeAsState(initial = listOf()).value
 
     HomeBody(
         taskList = allList,
-        onClick = {},
-        onFABClick = { navController.navigate(route = PomodoroScreen.EditDialog.name) }
+        onClick = {task ->
+            navigateToRunTimer(navController, task)
+        },
+        onFABClick = { id ->
+            navigateToEditDialog(navController, id)
+        }
     )
+}
+
+/**
+ * Helper function to convert [Task] to a json string that will be sent to
+ * the Run Timer Screen.
+ *
+ * @param task a [Task] that the user clicked
+ * */
+private fun navigateToRunTimer(
+    navController: NavController,
+    task: Task
+){
+    val timerJson = Gson().toJson(task)
+
+    // Navigate to the Run Timer screen
+    navController.navigate(route = "${PomodoroScreen.RunTimer}/$timerJson") {
+        launchSingleTop = true
+    }
+}
+
+/**
+ *
+ * @param navController
+ * @param id the id of the timer being edited
+ * */
+private fun navigateToEditDialog(
+    navController: NavController,
+    id: Long
+){
+    navController.navigate(route = "${PomodoroScreen.EditDialog.name}/$id")
 }
 
 /**

@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
@@ -44,7 +45,9 @@ import com.example.pomodorotimerapplication.utilities.isScrollingUp
  *
  * @param taskList (state) list of [Task] to display some information about each task
  * @param onClick (event) request to navigate to next screen
+ * @param onFABClick (event) request that a new pomodoro timer be created
  * */
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterialApi
@@ -52,11 +55,9 @@ import com.example.pomodorotimerapplication.utilities.isScrollingUp
 fun HomeBody(
     taskList: List<Task>,
     onClick: (Task) -> Unit,
-    onFABClick: () -> Unit
+    onFABClick: (Long) -> Unit
 ){
     val lazyListState = rememberLazyListState()
-
-    // TODO: Add a full-screen dialog to create a new pomodoro task
 
     PomodoroTimerApplicationTheme {
         Scaffold(
@@ -66,12 +67,14 @@ fun HomeBody(
                 // Show FAB
                 CreateFloatingActionButton(
                     extended = lazyListState.isScrollingUp(),
-                    onClick = onFABClick
+                    onClick = {
+                        onFABClick.invoke(0L)
+                    }
                 )
             },
             floatingActionButtonPosition = FabPosition.End
         ) {
-            GreetingCard()
+
             if(taskList.isEmpty()){
                 HomeEmptyContent()
             }else{
@@ -85,8 +88,10 @@ fun HomeBody(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeEmptyContent(){
+    //GreetingCard()
     Column {
         Row(
             Modifier
@@ -109,6 +114,7 @@ fun HomeEmptyContent(){
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterialApi
 @Composable
 fun HomeBodyContent(
@@ -116,6 +122,8 @@ fun HomeBodyContent(
     state: LazyListState,
     onClick: (Task) -> Unit
 ){
+
+    //GreetingCard()
 
     LazyColumn(
         contentPadding = PaddingValues(top = 8.dp),
@@ -330,6 +338,7 @@ fun PreviewTaskCard(){
     )
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterialApi
@@ -343,6 +352,7 @@ fun PreviewEmptyHomeBody(){
     )
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterialApi

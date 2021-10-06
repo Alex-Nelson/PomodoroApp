@@ -43,7 +43,7 @@ class EditTaskViewModel(key: Long, repository: AppRepository): ViewModel() {
      * @param num an integer for the length of each
      * */
     fun setSessionLength(num: Int){
-        currentTask.value?.sessionLen = num
+        currentTask.value!!.sessionLen = num
     }
 
     /**
@@ -51,7 +51,7 @@ class EditTaskViewModel(key: Long, repository: AppRepository): ViewModel() {
      * @param num an integer for the length of each short break
      * */
     fun setShortBreakLen(num: Int){
-        currentTask.value?.shortBreakLen = num
+        currentTask.value!!.shortBreakLen = num
     }
 
     /**
@@ -59,7 +59,7 @@ class EditTaskViewModel(key: Long, repository: AppRepository): ViewModel() {
      * @param num an integer for the length of each long break
      * */
     fun setLongBreakLen(num: Int){
-        currentTask.value?.longBreakLen = num
+        currentTask.value!!.longBreakLen = num
     }
 
     /**
@@ -67,7 +67,7 @@ class EditTaskViewModel(key: Long, repository: AppRepository): ViewModel() {
      * @param num an integer for the number of sessions
      * */
     fun setNumberSessions(num: Int){
-        currentTask.value?.numOfSessions = num
+        currentTask.value!!.numOfSessions = num
     }
 
     /**
