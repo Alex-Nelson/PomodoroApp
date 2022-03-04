@@ -22,7 +22,10 @@ data class RecentTimer(
     var timeLeft: Long,
 
     @ColumnInfo(name = "timer_length")
-    var timerLen: Long
+    var timerLen: Long,
+
+    @ColumnInfo(name = "sessions_ran")
+    var sessionsRan: Int
 )
 
 /**

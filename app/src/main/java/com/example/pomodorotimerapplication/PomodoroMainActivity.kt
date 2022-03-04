@@ -24,12 +24,10 @@ import androidx.navigation.navArgument
 import com.example.pomodorotimerapplication.data.Task
 import com.example.pomodorotimerapplication.ui.dialog.EditTaskDialog
 import com.example.pomodorotimerapplication.ui.home.HomeBody
+//import com.example.pomodorotimerapplication.ui.runtimer.RunTimerScreen
 import com.example.pomodorotimerapplication.ui.theme.PomodoroTimerApplicationTheme
 import com.example.pomodorotimerapplication.utilities.PomodoroScreen
-import com.example.pomodorotimerapplication.viewmodel.EditTaskViewModel
-import com.example.pomodorotimerapplication.viewmodel.EditTaskViewModelFactory
-import com.example.pomodorotimerapplication.viewmodel.HomeViewModel
-import com.example.pomodorotimerapplication.viewmodel.HomeViewModelFactory
+import com.example.pomodorotimerapplication.viewmodel.*
 import com.google.gson.Gson
 
 class PomodoroMainActivity : ComponentActivity() {
@@ -47,18 +45,27 @@ class PomodoroMainActivity : ComponentActivity() {
 
         // Set up view model for home screen
         val homeViewModelFactory = HomeViewModelFactory(application)
-        val homeViewModel = ViewModelProvider(this, homeViewModelFactory)
-            .get(HomeViewModel::class.java)
+        val homeViewModel = ViewModelProvider(
+            this, homeViewModelFactory)[HomeViewModel::class.java]
 
         // Set up view model for Edit Task Full Dialog
         val editTaskViewModelFactory = EditTaskViewModelFactory(0L, homeViewModel.repository)
-        val editTaskViewModel = ViewModelProvider(this, editTaskViewModelFactory)
-            .get(EditTaskViewModel::class.java)
+        val editTaskViewModel = ViewModelProvider(
+            owner = this, editTaskViewModelFactory)[EditTaskViewModel::class.java]
+
+        // Set up view model for Run Timer Screen
+        val runTimerViewModelFactory = RunTimerViewModelFactory(
+//            task = Task(taskId = 0L, taskName = "", sessionLen = 25,
+//                shortBreakLen = 5, longBreakLen = 15, numOfSessions = 4),
+            homeViewModel.repository)
+        val runTimerViewModel = ViewModelProvider(
+            owner = this, runTimerViewModelFactory)[RunTimerViewModel::class.java]
 
         setContent {
             PomodoroApp(
                 homeViewModel = homeViewModel,
-                editTaskViewModel = editTaskViewModel
+                editTaskViewModel = editTaskViewModel,
+                runTimerViewModel = runTimerViewModel
             )
         }
     }
@@ -71,8 +78,9 @@ class PomodoroMainActivity : ComponentActivity() {
 @Composable
 fun PomodoroApp(
     homeViewModel: HomeViewModel,
-    editTaskViewModel: EditTaskViewModel
-){
+    editTaskViewModel: EditTaskViewModel,
+    runTimerViewModel: RunTimerViewModel
+) {
     PomodoroTimerApplicationTheme {
         Surface {
             // TODO: Add loading screen
@@ -84,6 +92,7 @@ fun PomodoroApp(
                     navController = navController,
                     homeViewModel = homeViewModel,
                     editTaskViewModel = editTaskViewModel,
+                    runTimerViewModel = runTimerViewModel,
                     modifier = Modifier.padding(innerPadding)
                 )
             }
@@ -100,14 +109,15 @@ fun PomodoroAppNavHost(
     navController: NavHostController,
     homeViewModel: HomeViewModel,
     editTaskViewModel: EditTaskViewModel,
+    runTimerViewModel: RunTimerViewModel,
     modifier: Modifier = Modifier
-){
+) {
     NavHost(
         navController = navController,
         startDestination = PomodoroScreen.Home.name,
         modifier = modifier
-    ){
-        composable(route = PomodoroScreen.Home.name){
+    ) {
+        composable(route = PomodoroScreen.Home.name) {
             HomeScreen(
                 navController = navController,
                 homeViewModel = homeViewModel
@@ -117,17 +127,35 @@ fun PomodoroAppNavHost(
         composable(
             route = "${PomodoroScreen.EditDialog.name}/{taskId}",
             arguments = listOf(
-                navArgument("taskId"){
+                navArgument("taskId") {
                     type = NavType.LongType
                 }
             )
-        ){ backStackEntry ->
+        ) { backStackEntry ->
            backStackEntry.arguments?.getLong("taskId", 0L).let {
                CreateFullDialogScreen(
                    navController = navController,
                    viewModel = editTaskViewModel
                )
            }
+        }
+
+        composable(
+            route = "${PomodoroScreen.RunTimer.name}/{task}",
+            arguments = listOf(
+                navArgument("task") {
+                    type = NavType.StringType
+                }
+            )
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getString("task")?.let { json ->
+                val task = Gson().fromJson(json, Task::class.java)
+                TimerScreen(
+                    navController = navController,
+                    runTimerViewModel = runTimerViewModel,
+                    task = task
+                )
+            }
         }
     }
 }
@@ -146,7 +174,7 @@ fun PomodoroAppNavHost(
 fun HomeScreen(
     navController: NavController,
     homeViewModel: HomeViewModel
-){
+) {
     // TODO: retrieve all lists from view model
     val allList = homeViewModel.allTasksList.observeAsState(initial = listOf()).value
 
@@ -170,7 +198,7 @@ fun HomeScreen(
 private fun navigateToRunTimer(
     navController: NavController,
     task: Task
-){
+) {
     val timerJson = Gson().toJson(task)
 
     // Navigate to the Run Timer screen
@@ -187,7 +215,7 @@ private fun navigateToRunTimer(
 private fun navigateToEditDialog(
     navController: NavController,
     id: Long
-){
+) {
     navController.navigate(route = "${PomodoroScreen.EditDialog.name}/$id")
 }
 
@@ -200,7 +228,7 @@ private fun navigateToEditDialog(
 fun CreateFullDialogScreen(
     navController: NavController,
     viewModel: EditTaskViewModel
-){
+) {
     EditTaskDialog(
         task = viewModel::currentTask.get().value!!,
         title = "Create New Pomodoro Task",
@@ -212,4 +240,27 @@ fun CreateFullDialogScreen(
         onSaveName = viewModel::onSaveName,
         onSaveTask = viewModel::saveTask
     )
+}
+
+/**
+ * Screen for the pomodoro timer.
+ *
+ * @param navController
+ * @param runTimerViewModel the view model used by the screen
+ * */
+@Composable
+fun TimerScreen(
+    navController: NavController,
+    runTimerViewModel: RunTimerViewModel,
+    task: Task
+) {
+//    RunTimerScreen(
+//        task = ,
+//        timerStatus = runTimerViewModel.timerStatus.value,
+//        timerType = runTimerViewModel.timerType.value,
+//        timerString = runTimerViewModel.currentTimeString.value!!,
+//        onStartPause = runTimerViewModel::onStartPause,
+//        onReset = runTimerViewModel::onReset,
+//        onAutoStart = runTimerViewModel::onAutoStart
+//    )
 }

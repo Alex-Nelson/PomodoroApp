@@ -11,11 +11,30 @@
     <string name="afternoon_greeting">Good Afternoon!</string>
     <string name="evening_greeting">Good Evening!</string>
 
-    <!-- Strings for dialog -->
+    <!-- Strings for full screen dialog -->
     <string name="session_length">Session Length:</string>
     <string name="number_of_sessions">Number of Sessions:</string>
     <string name="short_break_length">Short Break Length:</string>
     <string name="number_of_short_breaks">Number of Short Breaks:</string>
     <string name="long_break_length">Long Break Length:</string>
     <string name="number_of_long_breaks">Number of Long Breaks:</string>
+
+    <!-- Labels for buttons -->
+    <string name="submit">Submit</string>
+    <string name="task_name_string">%s</string>
+
+    <!-- Notification Strings -->
+    <string name="start_break">Start %s Break!</string>
+    <string name="break_running">Enjoy Your Break!</string>
+    <string name="start_work">Time to Work!</string>
+    <string name="work_string">Working…</string>
+    <string name="finished_pomodoro">Pomodoro Finished!</string>
+    <string name="time_left">Time Left: %s</string>
+    <string name="no_tasks">No tasks!</string>
+
+    <!-- Strings for Delete Dialog -->
+    <string name="delete_task">Delete Task?</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
 </resources>

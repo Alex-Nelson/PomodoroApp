@@ -114,6 +114,15 @@ fun EditTaskDialog(
 
 }
 
+/**
+ * The main content of the dialog, where the user can make edits to save.
+ *
+ * @param task (state) a [Task] that can be passed in (can be null if it's a new task)
+ * @param onSaveSessionLen (event) notify caller to save the length of a session
+ * @param onSaveShortLength (event) notify caller to save the length of a short break
+ * @param onSaveLongLength (event) notify caller to save the length of a long break
+ * @param onSaveName (event) notify caller to save the name
+ * */
 @ExperimentalComposeUiApi
 @Composable
 fun DialogContent(
@@ -287,7 +296,7 @@ fun PreviewEditRow(){
 fun PreviewEditTaskDialog(){
     EditTaskDialog(
         task = Task(1, "Study for Physics III test", 25,
-        5, 15, 4),
+            5, 15, 4),
         title = "Create New Pomodoro Timer",
         onDismiss = { },
         onSaveSessionLen = { },

@@ -35,10 +35,10 @@ class RoomUnitTest {
     private val task3 = Task(3, "Review Compose library", 30,
     10, 20, 4)
 
-    private val timer1 = RecentTimer(1, 1, "Session",
-        960000, 1500000)
-    private val timer2 = RecentTimer(2, 2, "Short Break",
-        180000, 300000)
+//    private val timer1 = RecentTimer(1, 1, "Session",
+//        960000, 1500000)
+//    private val timer2 = RecentTimer(2, 2, "Short Break",
+//        180000, 300000)
 
     private val item1 = TaskItem(1, 2, "Work on Dynamic Programming problems")
 
@@ -93,19 +93,19 @@ class RoomUnitTest {
         }
     }
 
-    @Test
-    fun testSaveTimer(){
-        runBlocking {
-            repository.addTimer(timer1)
-            repository.addTimer(timer2)
-
-            val result1 = repository.getTaskTimer(1).recentTimer
-            val result2 = repository.getTaskTimer(2)
-
-            assertThat(result1, equalTo(timer1))
-            assertThat(result2.recentTimer, equalTo(timer2))
-        }
-    }
+//    @Test
+//    fun testSaveTimer(){
+//        runBlocking {
+//            repository.addTimer(timer1)
+//            repository.addTimer(timer2)
+//
+//            val result1 = repository.getTaskTimer(1).recentTimer
+//            val result2 = repository.getTaskTimer(2)
+//
+//            assertThat(result1, equalTo(timer1))
+//            assertThat(result2.recentTimer, equalTo(timer2))
+//        }
+//    }
 
     @Test
     fun testSaveTaskItem(){
